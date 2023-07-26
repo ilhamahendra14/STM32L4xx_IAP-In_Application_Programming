@@ -3,6 +3,7 @@
 ## Hardware
 + I added a push button to the PA15 pin.
 
+  ![alt text](https://github.com/ilhamahendra14/STM32L4xx_IAP-In_Application_Programming/blob/28655e09a9d55c6dcfd32f77a9422e5a13f01a44/Images/Push_Button.png?raw=true)
 + I added a buzzer to the PA8 pin.
 
 ## Firmware
@@ -31,46 +32,46 @@ Important :
 
   ```C
   void bootloaderInit(void) {
-    BootloaderMode bootloaderMode;
-    if (HAL_GPIO_ReadPin(BootStat_GPIO_Port, BootStat_Pin) == GPIO_PIN_RESET)
-        bootloaderMode = FlashMode;
-    else
-        bootloaderMode = JumpMode;
-    if (bootloaderMode == JumpMode) {
-        uint8_t emptyCellCount = 0;
-        for (uint8_t i = 0; i < 10; i++) {
-            if (readWord(APP1_START + (i * 8)) == -1)
-                emptyCellCount++;
-        }
-        if (emptyCellCount != 10)
-            jumpToApp(APP1_START);
-        else
-            errorBlink();
-    }
+      BootloaderMode bootloaderMode;
+      if (HAL_GPIO_ReadPin(BootStat_GPIO_Port, BootStat_Pin) == GPIO_PIN_RESET)
+          bootloaderMode = FlashMode;
+      else
+          bootloaderMode = JumpMode;
+      if (bootloaderMode == JumpMode) {
+          uint8_t emptyCellCount = 0;
+          for (uint8_t i = 0; i < 10; i++) {
+              if (readWord(APP1_START + (i * 8)) == -1)
+                  emptyCellCount++;
+          }
+          if (emptyCellCount != 10)
+              jumpToApp(APP1_START);
+          else
+              errorBlink();
+      }
   }
   ```
 + Bootloader allows a STM32 board to have more than 1 application/firmware.
     ```C
   void bootloaderInit(void) {
-    BootloaderMode bootloaderMode;
-    if (HAL_GPIO_ReadPin(BootStat_GPIO_Port, BootStat_Pin) == GPIO_PIN_RESET)
-        bootloaderMode = FlashMode;
-    else
-        bootloaderMode = JumpMode;
-    if (bootloaderMode == JumpMode) {
-        uint8_t emptyCellCount = 0;
-        for (uint8_t i = 0; i < 10; i++) {
-            if (readWord(APP1_START + (i * 8)) == -1)
-                emptyCellCount++;
-        }
-        if (emptyCellCount != 10)
-            if .... //give condition here
-                jumpToApp(APP1_START);
-            else
-                jumpToApp(APP2_START);
-        else
-            errorBlink();
-    }
+      BootloaderMode bootloaderMode;
+      if (HAL_GPIO_ReadPin(BootStat_GPIO_Port, BootStat_Pin) == GPIO_PIN_RESET)
+          bootloaderMode = FlashMode;
+      else
+          bootloaderMode = JumpMode;
+      if (bootloaderMode == JumpMode) {
+          uint8_t emptyCellCount = 0;
+          for (uint8_t i = 0; i < 10; i++) {
+              if (readWord(APP1_START + (i * 8)) == -1)
+                  emptyCellCount++;
+          }
+          if (emptyCellCount != 10)
+              if .... //give condition here
+                  jumpToApp(APP1_START);
+              else
+                  jumpToApp(APP2_START);
+          else
+              errorBlink();
+      }
   }
   ```
 + Bootloader allows feature (you can add in bootloader.c):
@@ -80,7 +81,7 @@ Important :
   - etc
 
 ### App1
-+ App1 actually like generally main firmware
++ App1 actually like generally main firmware.
 + App1 starts at 0x08010000 but I allocate only 192kB. To edit go to 'STM32L432KCUX_FLASH.ld' and 'system_stm32l4xx.c'.
 
   STM32L432KCUX_FLASH.ld:
