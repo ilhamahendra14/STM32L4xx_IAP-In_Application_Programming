@@ -1,0 +1,5 @@
+../Core/Src/bootloader.c:3:6:bootloaderInit	16	static
+../Core/Src/bootloader.c:23:10:readWord	24	static
+../Core/Src/bootloader.c:29:6:jumpToApp	24	static,ignoring_inline_asm
+../Core/Src/bootloader.c:35:6:deinitEverything	8	static
+../Core/Src/bootloader.c:47:6:errorBlink	8	static
